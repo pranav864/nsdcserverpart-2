@@ -1,0 +1,340 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Aesthetic Signup Page</title>
+
+  <style>
+
+    *{
+      margin:0;
+      padding:0;
+      box-sizing:border-box;
+      font-family:"Poppins", sans-serif;
+    }
+
+    body{
+      height:100vh;
+      display:flex;
+      justify-content:space-evenly;
+      align-items:center;
+      overflow:hidden;
+
+      background:linear-gradient(
+        135deg,
+        #0f172a,
+        #1e293b,
+        #111827
+      );
+    }
+
+    /* LEFT SIDE MEME */
+
+    .meme-side{
+      width:50%;
+      display:flex;
+      justify-content:center;
+      align-items:center;
+      position:relative;
+    }
+
+    .meme-side img{
+      width:90%;
+      max-width:500px;
+
+      box-shadow:
+        0 10px 40px rgba(0,0,0,0.5);
+
+      animation:float 4s ease-in-out infinite;
+    }
+
+    @keyframes float{
+      0%{
+        transform:translateY(0px);
+      }
+
+      50%{
+        transform:translateY(-12px);
+      }
+
+      100%{
+        transform:translateY(0px);
+      }
+    }
+
+    /* RIGHT SIDE SIGNUP */
+
+    .signup-side{
+      width:45%;
+      display:flex;
+      justify-content:center;
+      align-items:center;
+      position:relative;
+    }
+
+    .signup-container{
+      width:400px;
+      padding:40px;
+      border-radius:25px;
+
+      background:rgba(255,255,255,0.12);
+      backdrop-filter:blur(15px);
+
+      box-shadow:
+        0 8px 32px rgba(0,0,0,0.3);
+
+      border:1px solid rgba(255,255,255,0.2);
+    }
+
+    .signup-container h1{
+      text-align:center;
+      color:white;
+      margin-bottom:10px;
+      font-size:32px;
+    }
+
+    .signup-container p{
+      text-align:center;
+      margin-bottom:25px;
+      color:#d1d5db;
+      font-size:14px;
+    }
+
+    .input-group{
+      margin-bottom:18px;
+    }
+
+    .input-group label{
+      display:block;
+      margin-bottom:8px;
+      color:white;
+      font-size:14px;
+    }
+
+    .input-group input,
+    .input-group textarea{
+      width:100%;
+      padding:14px;
+      border:none;
+      border-radius:14px;
+      outline:none;
+
+      background:rgba(255,255,255,0.75);
+
+      font-size:14px;
+      resize:none;
+
+      transition:0.3s;
+    }
+
+    .input-group input:focus,
+    .input-group textarea:focus{
+      background:white;
+
+      box-shadow:
+        0 0 10px rgba(140,120,255,0.3);
+
+      transform:scale(1.02);
+    }
+
+    .signup-btn{
+      width:100%;
+      padding:14px;
+
+      border:none;
+      border-radius:14px;
+
+      background:linear-gradient(
+        135deg,
+        #8b5cf6,
+        #ec4899
+      );
+
+      color:white;
+      font-size:16px;
+      font-weight:bold;
+
+      cursor:pointer;
+      transition:0.3s;
+    }
+
+    .signup-btn:hover{
+      transform:translateY(-3px);
+
+      box-shadow:
+        0 6px 16px rgba(155,123,255,0.4);
+    }
+
+    .footer-text{
+      margin-top:18px;
+      text-align:center;
+      font-size:13px;
+      color:#d1d5db;
+    }
+
+    .footer-text a{
+      color:#c084fc;
+      text-decoration:none;
+      font-weight:600;
+    }
+
+    .footer-text a:hover{
+      text-decoration:underline;
+    }
+
+    /* MOVING PLANE */
+
+    .plane{
+      position:absolute;
+      top:40px;
+      left:-200px;
+      width:120px;
+      z-index:10;
+
+      animation:fly 8s linear infinite;
+    }
+
+    @keyframes fly{
+
+      0%{
+        left:-200px;
+        transform:translateY(0px) rotate(5deg);
+      }
+
+      25%{
+        transform:translateY(-10px) rotate(3deg);
+      }
+
+      50%{
+        transform:translateY(5px) rotate(-2deg);
+      }
+
+      75%{
+        transform:translateY(-8px) rotate(2deg);
+      }
+
+      100%{
+        left:100%;
+        transform:translateY(0px) rotate(5deg);
+      }
+    }
+
+    /* MOBILE RESPONSIVE */
+
+    @media(max-width:900px){
+
+      body{
+        flex-direction:column;
+        padding: 10px;;
+      }
+
+      .meme-side,
+      .signup-side{
+        width:100%;
+      }
+
+      .meme-side img{
+        width:100%;
+        margin-bottom:20px;
+      }
+
+      .signup-container{
+        width:100%;
+        max-width:400px;
+      }
+    }
+
+  </style>
+</head>
+
+<body>
+
+  <!-- PLANE -->
+  <img src="plane.png"
+       class="plane"
+       alt="plane">
+
+  <!-- LEFT MEME -->
+  <div class="meme-side">
+
+    <img src="evil-chihuahua.gif"
+         alt="Funny Meme">
+
+  </div>
+
+  <!-- RIGHT SIGNUP -->
+  <div class="signup-side">
+
+    <div class="signup-container">
+
+      <h1>Create Account</h1>
+
+      <p>
+        Join us and begin your aesthetic experience ✨
+      </p>
+
+      <form action="login.html">
+
+        <div class="input-group">
+          <label>Full Name</label>
+
+          <input
+            type="text"
+            placeholder="Enter your full name"
+            required>
+        </div>
+
+        <div class="input-group">
+          <label>Address</label>
+
+          <textarea
+            rows="3"
+            placeholder="Enter your address"
+            required></textarea>
+        </div>
+
+        <div class="input-group">
+          <label>Email</label>
+
+          <input
+            type="email"
+            placeholder="Enter your email"
+            required>
+        </div>
+
+        <div class="input-group">
+          <label>Password</label>
+
+          <input
+            type="password"
+            placeholder="Create a password"
+            required>
+        </div>
+
+        <button
+          type="submit"
+          class="signup-btn">
+
+          Sign Up
+
+        </button>
+
+      </form>
+
+      <div class="footer-text">
+
+        Already have an account?
+
+        <a href="login.html">
+          Login
+        </a>
+
+      </div>
+
+    </div>
+
+  </div>
+
+</body>
+</html>
