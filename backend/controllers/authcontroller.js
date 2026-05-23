@@ -96,7 +96,6 @@ exports.loginuser = async (req, res) => {
 };
 };
 
-
 exports.logoutuser = async (req, res) => {
   try {
     return res.status(200).json({
