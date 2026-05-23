@@ -45,17 +45,19 @@ exports.registeruser = async (req, res) => {
 };
 
 exports.loginuser = async (req, res) => {
+  exports.loginuser = async (req, res) => {
   try {
+
+    console.log("LOGIN STARTED");
+
     const { email, password } = req.body;
 
-    if (!email || !password) {
-      return res.status(400).json({
-        success: false,
-        message: "email and password are required"
-      });
-    }
+    console.log("BODY:", req.body);
 
     const user = await authrepository.findUserByEmail(email);
+
+    console.log("USER FOUND:", user);
+
     if (!user) {
       return res.status(400).json({
         success: false,
@@ -64,36 +66,36 @@ exports.loginuser = async (req, res) => {
     }
 
     const isMatch = await authrepository.comparePassword(password, user.password);
-    if (!isMatch) {
-      return res.status(400).json({
-        success: false,
-        message: "invalid email or password"
-      });
-    }
+
+    console.log("PASSWORD MATCH:", isMatch);
 
     const payload = {
       id: user._id,
       email: user.email
     };
 
+    console.log("JWT_SECRET:", process.env.JWT_SECRET);
+
     const token = generateToken(payload);
-    const returnedUser = user.toObject();
-    delete returnedUser.password;
+
+    console.log("TOKEN CREATED");
 
     return res.status(200).json({
       success: true,
-      message: "login successful",
-      user: returnedUser,
       token
     });
+
   } catch (error) {
-    console.log(error);
+    console.log("LOGIN ERROR:", error);
+
     return res.status(500).json({
       success: false,
       message: error.message
     });
   }
 };
+};
+
 
 exports.logoutuser = async (req, res) => {
   try {
