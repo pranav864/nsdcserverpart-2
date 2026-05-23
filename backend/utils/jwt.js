@@ -1,6 +1,5 @@
 const jwt = require('jsonwebtoken');
 
-
 const getJwtSecret = () => {
     const secret = process.env.JWT_SECRET;
     if (!secret) {
@@ -27,4 +26,9 @@ exports.verifyToken = (token) => {
         token,
         getJwtSecret()
     );
+};
+
+module.exports = {
+    generateToken: exports.generateToken,
+    verifyToken: exports.verifyToken
 };
