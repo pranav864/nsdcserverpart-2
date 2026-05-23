@@ -1,13 +1,20 @@
-const jwt = require ('jsonwebtoken');
+const jwt = require('jsonwebtoken');
 
 require('dotenv').config();
 
+const getJwtSecret = () => {
+    const secret = process.env.JWT_SECRET;
+    if (!secret) {
+        throw new Error('JWT_SECRET environment variable must be set');
+    }
+    return secret;
+};
+
 //generate token
 exports.generateToken = (payload) => {
-
     return jwt.sign(
-        payload, 
-        process.env.JWT_SECRET, 
+        payload,
+        getJwtSecret(),
         { expiresIn: '1h' }
     );
 };
@@ -15,7 +22,7 @@ exports.generateToken = (payload) => {
 //verify token
 exports.verifyToken = (token) => {
     return jwt.verify(
-        token, 
-        process.env.JWT_SECRET
-    );    
+        token,
+        getJwtSecret()
+    );
 };
