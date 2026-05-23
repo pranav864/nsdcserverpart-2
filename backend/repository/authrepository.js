@@ -1,3 +1,4 @@
+const bcrypt = require("bcrypt");
 const User = require("../models/userModel");
 
 
@@ -28,7 +29,7 @@ exports.findUserByEmail = async (email) => {
 
     try {
 
-        return await User.findOne({ email });
+        return await User.findOne({ email }).select("+password");
 
     }
 
@@ -38,4 +39,11 @@ exports.findUserByEmail = async (email) => {
 
     }
 
+};
+
+
+// ================= COMPARE PASSWORD =================
+
+exports.comparePassword = async (plainPassword, hashedPassword) => {
+    return bcrypt.compare(plainPassword, hashedPassword);
 };

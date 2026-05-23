@@ -1,5 +1,4 @@
-﻿const bcrypt = require("bcrypt");
-const { generateToken } = require("../utils/jwt");
+﻿const { generateToken } = require("../utils/jwt");
 const authrepository = require("../repository/authrepository");
 
 exports.registeruser = async (req, res) => {
@@ -21,18 +20,20 @@ exports.registeruser = async (req, res) => {
       });
     }
 
-    const hashpassword = await bcrypt.hash(password, 10);
     const user = await authrepository.createUser({
       name,
       email,
-      password: hashpassword,
+      password,
       phone
     });
+
+    const returnedUser = user.toObject();
+    delete returnedUser.password;
 
     return res.status(201).json({
       success: true,
       message: "user registered successfully",
-      user
+      user: returnedUser
     });
   } catch (error) {
     console.log(error);
@@ -62,7 +63,7 @@ exports.loginuser = async (req, res) => {
       });
     }
 
-    const isMatch = await bcrypt.compare(password, user.password);
+    const isMatch = await authrepository.comparePassword(password, user.password);
     if (!isMatch) {
       return res.status(400).json({
         success: false,
@@ -76,10 +77,13 @@ exports.loginuser = async (req, res) => {
     };
 
     const token = generateToken(payload);
+    const returnedUser = user.toObject();
+    delete returnedUser.password;
+
     return res.status(200).json({
       success: true,
       message: "login successful",
-      user,
+      user: returnedUser,
       token
     });
   } catch (error) {
