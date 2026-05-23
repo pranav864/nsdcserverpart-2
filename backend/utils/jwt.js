@@ -11,9 +11,12 @@ const getJwtSecret = () => {
 
 //generate token
 exports.generateToken = (payload) => {
+
+    console.log("JWT SECRET INSIDE VERCEL:", process.env.JWT_SECRET);
+
     return jwt.sign(
         payload,
-        getJwtSecret(),
+        process.env.JWT_SECRET,
         { expiresIn: '1h' }
     );
 };
