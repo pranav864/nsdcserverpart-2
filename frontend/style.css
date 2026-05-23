@@ -1,99 +1,353 @@
-* {
+/* ── Variables ── */
+:root {
+    --bg:         #0a0a0f;
+    --surface:    #111118;
+    --surface-2:  #18181f;
+    --border:     rgba(255,255,255,0.07);
+    --border-h:   rgba(255,255,255,0.14);
+    --accent:     #6c63ff;
+    --accent-glow:rgba(108,99,255,0.35);
+    --accent-dim: rgba(108,99,255,0.15);
+    --text:       #e8e8f0;
+    --text-muted: #6b6b80;
+    --text-label: #9898aa;
+    --error:      #f87171;
+    --success:    #34d399;
+    --radius:     12px;
+    --font-body:  'Sora', sans-serif;
+    --font-mono:  'JetBrains Mono', monospace;
+    --transition: 0.2s ease;
+}
+
+/* ── Reset ── */
+*, *::before, *::after {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
-    font-family: Arial, Helvetica, sans-serif;
 }
 
+/* ── Body & Background ── */
 body {
-    height: 100vh;
-    background: #f5f5f5;
+    min-height: 100vh;
+    background: var(--bg);
     display: flex;
     justify-content: center;
     align-items: center;
+    font-family: var(--font-body);
+    color: var(--text);
+    overflow: hidden;
+    position: relative;
 }
 
+.bg-grid {
+    position: fixed;
+    inset: 0;
+    background-image:
+        linear-gradient(rgba(255,255,255,0.025) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255,255,255,0.025) 1px, transparent 1px);
+    background-size: 40px 40px;
+    pointer-events: none;
+    z-index: 0;
+}
+
+.bg-glow {
+    position: fixed;
+    top: -200px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 700px;
+    height: 500px;
+    background: radial-gradient(ellipse at center, var(--accent-glow) 0%, transparent 65%);
+    pointer-events: none;
+    z-index: 0;
+    opacity: 0.6;
+}
+
+/* ── Container ── */
 .container {
+    position: relative;
+    z-index: 1;
     width: 100%;
     display: flex;
     justify-content: center;
     align-items: center;
+    padding: 20px;
 }
 
+/* ── Form Box ── */
 .form-box {
-    width: 380px;
-    background: white;
-    padding: 30px;
-    border-radius: 10px;
-    box-shadow: 0px 0px 10px rgba(0,0,0,0.1);
+    width: 400px;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 20px;
+    padding: 36px 32px;
+    box-shadow:
+        0 0 0 1px rgba(108,99,255,0.08),
+        0 32px 64px rgba(0,0,0,0.5),
+        0 0 80px rgba(108,99,255,0.06);
+    animation: slideUp 0.45s cubic-bezier(0.22, 1, 0.36, 1) both;
 }
 
+@keyframes slideUp {
+    from { opacity: 0; transform: translateY(24px); }
+    to   { opacity: 1; transform: translateY(0); }
+}
+
+/* ── Brand ── */
+.brand {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-bottom: 28px;
+}
+
+.brand-icon {
+    font-size: 22px;
+    color: var(--accent);
+    line-height: 1;
+    filter: drop-shadow(0 0 8px var(--accent-glow));
+}
+
+.brand-name {
+    font-family: var(--font-mono);
+    font-size: 14px;
+    font-weight: 500;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--text-muted);
+}
+
+/* ── Headings ── */
 .form-box h2 {
-    text-align: center;
-    margin-bottom: 20px;
+    font-size: 22px;
+    font-weight: 600;
+    color: var(--text);
+    letter-spacing: -0.02em;
+    margin-bottom: 4px;
+    transition: all var(--transition);
 }
 
+.subtitle {
+    font-size: 13px;
+    color: var(--text-muted);
+    margin-bottom: 24px;
+}
+
+/* ── Message ── */
+.message {
+    min-height: 18px;
+    font-size: 13px;
+    font-weight: 500;
+    text-align: center;
+    border-radius: 8px;
+    padding: 0;
+    margin-bottom: 0;
+    transition: all 0.25s ease;
+    overflow: hidden;
+    max-height: 0;
+}
+
+.message.success,
+.message.error {
+    padding: 10px 14px;
+    margin-bottom: 16px;
+    max-height: 60px;
+}
+
+.message.success {
+    color: var(--success);
+    background: rgba(52, 211, 153, 0.08);
+    border: 1px solid rgba(52, 211, 153, 0.2);
+}
+
+.message.error {
+    color: var(--error);
+    background: rgba(248, 113, 113, 0.08);
+    border: 1px solid rgba(248, 113, 113, 0.2);
+}
+
+/* ── Input Groups ── */
 .input-group {
-    margin-top: 15px;
+    margin-top: 16px;
+}
+
+.input-group label {
+    display: block;
+    font-size: 12px;
+    font-weight: 500;
+    color: var(--text-label);
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    margin-bottom: 7px;
 }
 
 .input-group input {
     width: 100%;
-    padding: 12px;
-    border: 1px solid #ccc;
-    border-radius: 5px;
+    padding: 11px 14px;
+    background: var(--surface-2);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    color: var(--text);
+    font-family: var(--font-body);
+    font-size: 14px;
     outline: none;
+    transition:
+        border-color var(--transition),
+        box-shadow var(--transition),
+        background var(--transition);
+}
+
+.input-group input::placeholder {
+    color: var(--text-muted);
+    opacity: 0.6;
+}
+
+.input-group input:hover {
+    border-color: var(--border-h);
+}
+
+.input-group input:focus {
+    border-color: var(--accent);
+    background: rgba(108,99,255,0.04);
+    box-shadow: 0 0 0 3px var(--accent-dim);
 }
 
 .input-group small {
-    color: red;
-    font-size: 13px;
-    margin-top: 5px;
     display: block;
+    min-height: 16px;
+    color: var(--error);
+    font-size: 12px;
+    margin-top: 5px;
+    padding-left: 2px;
 }
 
-button {
-    width: 100%;
-    padding: 12px;
-    margin-top: 20px;
+/* ── Password Wrapper ── */
+.password-wrapper {
+    position: relative;
+}
+
+.password-wrapper input {
+    padding-right: 42px;
+}
+
+.toggle-pw {
+    position: absolute;
+    right: 12px;
+    top: 50%;
+    transform: translateY(-50%);
+    width: auto;
+    padding: 0;
+    margin: 0;
+    background: transparent;
     border: none;
-    background: black;
-    color: white;
-    border-radius: 5px;
+    color: var(--text-muted);
+    font-size: 14px;
     cursor: pointer;
-    font-size: 16px;
+    line-height: 1;
+    transition: color var(--transition);
 }
 
-button:hover {
-    background: #333;
+.toggle-pw:hover {
+    background: transparent;
+    color: var(--text);
 }
 
-.message {
-    margin-bottom: 15px;
-    text-align: center;
-    min-height: 20px;
+/* ── Submit Button ── */
+button[type="submit"] {
+    width: 100%;
+    padding: 12px 20px;
+    margin-top: 24px;
+    border: none;
+    background: var(--accent);
+    color: #fff;
+    border-radius: var(--radius);
+    cursor: pointer;
+    font-family: var(--font-body);
+    font-size: 14px;
     font-weight: 600;
+    letter-spacing: 0.02em;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    transition:
+        background var(--transition),
+        box-shadow var(--transition),
+        transform 0.1s ease;
+    box-shadow: 0 4px 20px rgba(108,99,255,0.3);
 }
 
-.message.success {
-    color: #137333;
+button[type="submit"]:hover {
+    background: #7b72ff;
+    box-shadow: 0 6px 28px rgba(108,99,255,0.45);
+    transform: translateY(-1px);
 }
 
-.message.error {
-    color: #b91c1c;
+button[type="submit"]:active {
+    transform: translateY(0);
+    box-shadow: 0 2px 12px rgba(108,99,255,0.25);
 }
 
-p {
-    margin-top: 15px;
+.btn-arrow {
+    font-size: 16px;
+    transition: transform var(--transition);
+}
+
+button[type="submit"]:hover .btn-arrow {
+    transform: translateX(3px);
+}
+
+/* ── Divider ── */
+.divider {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin: 22px 0 0;
+    color: var(--text-muted);
+    font-size: 12px;
+}
+
+.divider::before,
+.divider::after {
+    content: '';
+    flex: 1;
+    height: 1px;
+    background: var(--border);
+}
+
+/* ── Toggle Text ── */
+p#toggleText {
+    margin-top: 18px;
     text-align: center;
+    font-size: 13px;
+    color: var(--text-muted);
 }
 
-span {
-    color: blue;
+p#toggleText span {
+    color: var(--accent);
     cursor: pointer;
-    font-weight: bold;
+    font-weight: 600;
+    transition: color var(--transition), text-decoration var(--transition);
+    text-decoration: none;
 }
 
+p#toggleText span:hover {
+    color: #9b95ff;
+    text-decoration: underline;
+    text-underline-offset: 3px;
+}
+
+/* ── Hidden ── */
 .hidden {
     display: none;
+}
+
+/* ── Register Fields Animation ── */
+#registerFields:not(.hidden) {
+    animation: expandIn 0.3s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+@keyframes expandIn {
+    from { opacity: 0; transform: translateY(-8px); }
+    to   { opacity: 1; transform: translateY(0); }
 }

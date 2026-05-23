@@ -45,7 +45,6 @@ exports.registeruser = async (req, res) => {
 };
 
 exports.loginuser = async (req, res) => {
-  exports.loginuser = async (req, res) => {
   try {
 
     console.log("LOGIN STARTED");
@@ -68,6 +67,13 @@ exports.loginuser = async (req, res) => {
     const isMatch = await authrepository.comparePassword(password, user.password);
 
     console.log("PASSWORD MATCH:", isMatch);
+
+    if (!isMatch) {
+      return res.status(400).json({
+        success: false,
+        message: "invalid email or password"
+      });
+    }
 
     const payload = {
       id: user._id,
@@ -93,7 +99,6 @@ exports.loginuser = async (req, res) => {
       message: error.message
     });
   }
-};
 };
 
 exports.logoutuser = async (req, res) => {

@@ -2,118 +2,86 @@
 <html lang="en">
 
 <head>
-
     <meta charset="UTF-8">
-
-    <meta
-        name="viewport"
-        content="width=device-width, initial-scale=1.0"
-    >
-
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Auth Page</title>
-
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Sora:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="style.css">
-
 </head>
 
 <body>
 
-    <div class="container">
+    <div class="bg-grid"></div>
+    <div class="bg-glow"></div>
 
+    <div class="container">
         <div class="form-box">
 
-            <h2 id="formTitle">
-                Login
-            </h2>
+            <div class="brand">
+                <div class="brand-icon">⬡</div>
+                <span class="brand-name">Vertex</span>
+            </div>
+
+            <h2 id="formTitle">Welcome back</h2>
+            <p class="subtitle" id="formSubtitle">Sign in to your account</p>
 
             <div id="formMessage" class="message"></div>
 
-            <!-- FIXED FORM -->
             <form id="authForm" onsubmit="handleSubmit(event)">
 
                 <!-- REGISTER FIELDS -->
-
                 <div id="registerFields" class="hidden">
-
                     <div class="input-group">
-
-                        <input
-                            type="text"
-                            id="name"
-                            placeholder="Enter Name"
-                        >
-
+                        <label for="name">Full Name</label>
+                        <input type="text" id="name" placeholder="John Doe">
                         <small id="nameError"></small>
-
                     </div>
-
                     <div class="input-group">
-
-                        <input
-                            type="text"
-                            id="phone"
-                            placeholder="Enter Phone Number"
-                        >
-
+                        <label for="phone">Phone Number</label>
+                        <input type="text" id="phone" placeholder="10-digit number">
                         <small id="phoneError"></small>
-
                     </div>
-
                 </div>
 
                 <!-- EMAIL -->
-
                 <div class="input-group">
-
-                    <input
-                        type="email"
-                        id="email"
-                        placeholder="Enter Email"
-                    >
-
+                    <label for="email">Email</label>
+                    <input type="email" id="email" placeholder="you@example.com">
                     <small id="emailError"></small>
-
                 </div>
 
                 <!-- PASSWORD -->
-
                 <div class="input-group">
-
-                    <input
-                        type="password"
-                        id="password"
-                        placeholder="Enter Password"
-                    >
-
+                    <label for="password">Password</label>
+                    <div class="password-wrapper">
+                        <input type="password" id="password" placeholder="Min. 6 characters">
+                        <button type="button" class="toggle-pw" onclick="togglePassword()" tabindex="-1">
+                            <span id="eyeIcon">◎</span>
+                        </button>
+                    </div>
                     <small id="passwordError"></small>
-
                 </div>
 
-                <button
-                    type="submit"
-                    id="submitBtn"
-                >
-                    Login
+                <button type="submit" id="submitBtn">
+                    <span id="btnText">Sign In</span>
+                    <span class="btn-arrow">→</span>
                 </button>
 
             </form>
 
+            <div class="divider"><span>or</span></div>
+
             <p id="toggleText">
-
                 Don't have an account?
-
-                <span onclick="toggleForm()">
-                    Register here
-                </span>
-
+                <span onclick="toggleForm()">Create one</span>
             </p>
 
         </div>
-
     </div>
 
     <script src="script.js"></script>
-
 </body>
 
 </html>
