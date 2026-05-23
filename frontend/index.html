@@ -26,70 +26,76 @@
                 Login
             </h2>
 
-            <!-- REGISTER FIELDS -->
+            <div id="formMessage" class="message"></div>
 
-            <div id="registerFields" class="hidden">
+            <form id="authForm" onsubmit="handleSubmit(event)">
+
+                <!-- REGISTER FIELDS -->
+
+                <div id="registerFields" class="hidden">
+
+                    <div class="input-group">
+
+                        <input
+                            type="text"
+                            id="name"
+                            placeholder="Enter Name"
+                        >
+
+                        <small id="nameError"></small>
+
+                    </div>
+
+                    <div class="input-group">
+
+                        <input
+                            type="text"
+                            id="phone"
+                            placeholder="Enter Phone Number"
+                        >
+
+                        <small id="phoneError"></small>
+
+                    </div>
+
+                </div>
+
+                <!-- EMAIL -->
 
                 <div class="input-group">
 
                     <input
-                        type="text"
-                        id="name"
-                        placeholder="Enter Name"
+                        type="email"
+                        id="email"
+                        placeholder="Enter Email"
                     >
 
-                    <small id="nameError"></small>
+                    <small id="emailError"></small>
 
                 </div>
+
+                <!-- PASSWORD -->
 
                 <div class="input-group">
 
                     <input
-                        type="text"
-                        id="phone"
-                        placeholder="Enter Phone Number"
+                        type="password"
+                        id="password"
+                        placeholder="Enter Password"
                     >
 
-                    <small id="phoneError"></small>
+                    <small id="passwordError"></small>
 
                 </div>
 
-            </div>
-
-            <!-- EMAIL -->
-
-            <div class="input-group">
-
-                <input
-                    type="email"
-                    id="email"
-                    placeholder="Enter Email"
+                <button
+                    type="submit"
+                    id="submitBtn"
                 >
+                    Login
+                </button>
 
-                <small id="emailError"></small>
-
-            </div>
-
-            <!-- PASSWORD -->
-
-            <div class="input-group">
-
-                <input
-                    type="password"
-                    id="password"
-                    placeholder="Enter Password"
-                >
-
-                <small id="passwordError"></small>
-
-            </div>
-
-            <button
-                onclick="handleSubmit()"
-                id="submitBtn"
-            >
-                Login
-            </button>
+            </form>
 
             <p id="toggleText">
 

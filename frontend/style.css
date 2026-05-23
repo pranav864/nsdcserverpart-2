@@ -68,6 +68,21 @@ button:hover {
     background: #333;
 }
 
+.message {
+    margin-bottom: 15px;
+    text-align: center;
+    min-height: 20px;
+    font-weight: 600;
+}
+
+.message.success {
+    color: #137333;
+}
+
+.message.error {
+    color: #b91c1c;
+}
+
 p {
     margin-top: 15px;
     text-align: center;

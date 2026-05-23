@@ -26,6 +26,7 @@ function toggleForm() {
     document.getElementById("registerFields");
 
     clearErrors();
+    clearMessage();
 
     if (isLogin) {
 
@@ -167,128 +168,91 @@ function validateForm(data) {
 
 }
 
-// HANDLE SUBMIT
+function showMessage(message, type = "success") {
+    const formMessage = document.getElementById("formMessage");
+    formMessage.innerText = message;
+    formMessage.className = `message ${type}`;
+}
 
-async function handleSubmit() {
+function clearMessage() {
+    const formMessage = document.getElementById("formMessage");
+    formMessage.innerText = "";
+    formMessage.className = "message";
+}
+
+function resetFormFields() {
+    document.getElementById("name").value = "";
+    document.getElementById("phone").value = "";
+    document.getElementById("email").value = "";
+    document.getElementById("password").value = "";
+}
+
+async function handleSubmit(event) {
+    event.preventDefault();
 
     try {
-
-        // GET INPUT VALUES
-
         const data = {
-
-            name:
-            document.getElementById("name").value,
-
-            phone:
-            document.getElementById("phone").value,
-
-            email:
-            document.getElementById("email").value,
-
-            password:
-            document.getElementById("password").value
-
+            name: document.getElementById("name").value,
+            phone: document.getElementById("phone").value,
+            email: document.getElementById("email").value,
+            password: document.getElementById("password").value
         };
-
-        // VALIDATE
 
         const valid = validateForm(data);
 
         if (!valid) {
+            showMessage("Please fix the highlighted errors.", "error");
             return;
         }
 
-        // LOGIN API
+        clearMessage();
 
         if (isLogin) {
+            const response = await fetch(`${BASE_URL}/login`, {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify({
+                    email: data.email,
+                    password: data.password
+                })
+            });
 
-            const response = await fetch(
-                `${BASE_URL}/login`,
-                {
-                    method: "POST",
-
-                    headers: {
-                        "Content-Type":
-                        "application/json"
-                    },
-
-                    body: JSON.stringify({
-                        email: data.email,
-                        password: data.password
-                    })
-                }
-            );
-
-            const result =
-            await response.json();
+            const result = await response.json();
 
             if (!response.ok) {
-
-                alert(result.message);
-
+                showMessage(result.message || "Login failed.", "error");
                 return;
-
             }
 
-            // STORE TOKEN
-
-            localStorage.setItem(
-                "token",
-                result.token
-            );
-
-            alert(result.message);
-
+            localStorage.setItem("token", result.token);
+            showMessage("Login successful!", "success");
+            resetFormFields();
             console.log(result);
+        } else {
+            const response = await fetch(`${BASE_URL}/register`, {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify(data)
+            });
 
-        }
-
-        // REGISTER API
-
-        else {
-
-            const response = await fetch(
-                `${BASE_URL}/register`,
-                {
-                    method: "POST",
-
-                    headers: {
-                        "Content-Type":
-                        "application/json"
-                    },
-
-                    body: JSON.stringify(data)
-                }
-            );
-
-            const result =
-            await response.json();
+            const result = await response.json();
 
             if (!response.ok) {
-
-                alert(result.message);
-
+                showMessage(result.message || "Registration failed.", "error");
                 return;
-
             }
 
-            alert(result.message);
-
-            console.log(result);
-
-            // SWITCH TO LOGIN
-
+            showMessage("Registration successful! Please login.", "success");
+            resetFormFields();
             toggleForm();
-
+            console.log(result);
         }
-
     } catch (error) {
-
         console.log(error);
-
-        alert("Something went wrong");
-
+        showMessage("Something went wrong. Try again.", "error");
     }
-
 }
